@@ -42,8 +42,8 @@ jobs:
     - name: Setup JDK
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        java-version: '22'
+        distribution: 'oracle'
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots verify
 
