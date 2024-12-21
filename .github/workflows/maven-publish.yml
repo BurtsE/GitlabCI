@@ -5,8 +5,7 @@ name: Test
 
 on:
   push:
-    branches: [ "main" ]
-    types: [created]
+    branches: [ "master" ]
 
 jobs:
 #   build:
