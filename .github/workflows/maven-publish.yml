@@ -44,11 +44,17 @@ jobs:
       with:
           distribution: 'oracle'
           java-version: 22
-    - name: Cache Maven packages
-      uses: actions/cache@v4
+    - name: Build
+      run: mvn --batch-mode -DskipTests package
+    - name: Test
+      run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+    - name: Report
+      uses: dorny/test-reporter@v1
+      if: always()
       with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-    - name: Run tests with Maven
-      run: mvn -B test --file pom.xml 
+        name: Maven Tests
+        path: target/surefire-reports/*.xml
+        reporter: java-junit
+        fail-on-error: true
+    # - name: Run tests with Maven
+    #   run: mvn -B test --file pom.xml 
